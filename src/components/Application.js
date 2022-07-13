@@ -21,7 +21,6 @@ const days = [
   },
 ];
 
-
 export default function Application(props) {
   // console.log(props)
   const [day, setDay] = useState("Monday")
@@ -40,8 +39,8 @@ export default function Application(props) {
           {/*DayList component*/}
           <DayList
             days={days}
-            day={day}
-            setDay={setDay}
+            value={day}
+            onChange={setDay}
           />
         </nav>
         <img
@@ -52,6 +51,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* appointment  */}
+        {/*<InterviewerList interviewers={interviewers}/>*/}
       </section>
     </main>
   );
