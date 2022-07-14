@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 
 import {storiesOf} from "@storybook/react";
 import {action} from "@storybook/addon-actions";
@@ -10,7 +10,15 @@ import DayListItem from "../src/components/DayListItem";
 import DayList from "../src/components/DayList";
 import InterviewerList from "../src/components/InterviewerList";
 import InterviewerListItem from "../src/components/InterviewerListItem";
+//Appointment
 import Appointment from "../src/components/Appointment";
+import Header from "../src/components/Appointment/Header";
+import Empty from "../src/components/Appointment/Empty";
+import Show from "../src/components/Appointment/Show";
+import Confirm from "../src/components/Appointment/Confirm";
+import Status from "../src/components/Appointment/Status";
+import Error from "../src/components/Appointment/Error";
+import Form from "../src/components/Appointment/Form";
 
 storiesOf("Button", module)
   .addParameters({
@@ -140,9 +148,38 @@ storiesOf("InterviewerList", module)
     />
   ));
 
-storiesOf("Appointment",module)
+storiesOf("Appointment", module)
   .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }]
+    backgrounds: [{name: "white", value: "#fff", default: true}]
   })
-  .add("Appointment", () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />);
+  .add("Appointment", () => <Appointment/>)
+  .add("Appointment with Time", () => <Appointment time="12pm"/>)
+  .add("Header", () => <Header time="12pm"/>)
+  .add("Empty", () => <Empty onAdd={action("onAdd")}/>)
+  .add("Show", () => <Show student={"Lydia Miller-Jones"} interviewer={interviewers[0]} onEdit={action("onEdit")}
+                           onDelete={action("onDelete")}/>)
+  .add("Confirm", () => <Confirm message={"Delete the appointment?"} onConfirm={action("onConfirm")}
+                                 onCancel={action("onCancel")}/>)
+  .add("Status", () => <Status message={"Deleting"}/>)
+  .add("Error", () => <Error message={"Could not delete appointment..."} onClose={action("onClose")}/>)
+  .add("Create", () => <Form interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")}/>)
+  .add("Edit", () => (
+    <Form student={"Dylan Wang"} interviewer={null} interviewers={interviewers} onSave={action("onSave")}
+          onCancel={action("onCancel")}/>
+  ))
+  .add("Appointment Empty", () => (
+    <Fragment>
+      <Appointment id={1} time="4pm"/>
+      <Appointment time="5pm"/>
+    </Fragment>
+  ))
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{student: "Lydia Miller-Jones", interviewer}}
+      />
+      <Appointment time="5pm"/>
+    </Fragment>
+  ))
