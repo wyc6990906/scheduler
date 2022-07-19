@@ -3,9 +3,12 @@ import InterviewerList from "../InterviewerList";
 import Button from "../Button";
 
 const Form = (props) => {
-  const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const {student, interviewer, interviewers, onSave, onCancel} = props;
+
+  const [studentName, setStudent] = useState(student || "");
+  const [interviewerState, setInterviewer] = useState(interviewer || null);
   const [err, setErr] = useState(null);
+
 
   const reset = function () {
     setStudent("");
@@ -15,7 +18,7 @@ const Form = (props) => {
 
   const cancel = function () {
     reset();
-    props.onCancel();
+    onCancel();
   };
   const validateInput = function (interviewer, student) {
     if (!student) {
@@ -26,7 +29,7 @@ const Form = (props) => {
       return;
     } else {
       setErr(null);
-      props.onSave(student, interviewer);
+      onSave(student, interviewer);
     }
   };
 
@@ -35,23 +38,25 @@ const Form = (props) => {
       <section className="appointment__card-left">
         <form autoComplete="off" onSubmit={e => e.preventDefault()}>
           <input
-            value={student}
+            value={studentName}
             onChange={(e) => {
               setStudent(e.target.value)
+              setErr(null);
             }}
+            data-testid={"student-name-input"}
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
             placeholder="Enter Student Name"
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer}
+        <InterviewerList interviewers={interviewers} value={interviewerState} onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button onClick={cancel} danger>Cancel</Button>
-          <Button onClick={() => validateInput(interviewer, student)} confirm>Save</Button>
+          <Button onClick={() => validateInput(interviewerState, studentName)} confirm>Save</Button>
         </section>
       </section>
     </main>
