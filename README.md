@@ -35,3 +35,11 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Dependencies
+- React
+- Webpack
+- Babel
+- Axios
+- Jest
+- Cypress
