@@ -1,5 +1,5 @@
-describe("appointments", ()=>{
-  beforeEach(()=>{
+describe("appointments", () => {
+  beforeEach(() => {
     // eslint-disable-next-line no-undef
     cy.request('GET', '/api/debug/reset')
 
@@ -8,7 +8,7 @@ describe("appointments", ()=>{
 
     cy.contains("[data-testid=day]", "Monday"); //default assertion confirms that Monday is in the document
   })
-  it("should book an interview", ()=>{
+  it("should book an interview", () => {
 
 
     // Clicks on the "Add" button in the second appointment
@@ -24,7 +24,7 @@ describe("appointments", ()=>{
     cy.contains(".appointment__card--show", "Sylvia Palmer");
 
   })
-  it("should edit an interview", ()=>{
+  it("should edit an interview", () => {
     // Clicks the edit button for the existing appointment
     cy.get('[alt=Edit]').first().click({force: true});
     //Changes the name
@@ -39,7 +39,7 @@ describe("appointments", ()=>{
 
   })
 
-  it.only("should cancel an interview", ()=>{
+  it.only("should cancel an interview", () => {
 
     // Clicks the delete button for the existing appointment
     cy.get('[alt=Delete]').first().click({force: true});
