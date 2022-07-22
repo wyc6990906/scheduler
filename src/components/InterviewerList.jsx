@@ -5,15 +5,17 @@ import "./InterviewerList.scss"
 
 const InterviewerList = (props) => {
   const {interviewers} = props
+  // console.log(props)
   InterviewerList.propTypes = {
     interviewers: PropTypes.array.isRequired
   }
   const interviewerListItems = interviewers.map((interviewer) => {
     return (
+      //fix cannot create/edit an appointment
       <InterviewerListItem key={interviewer.id} name={interviewer.name} avatar={interviewer.avatar}
-                           selected={interviewer.id === props.value}
+                           selected={interviewer.id === props.interviewer}
                            setInterviewer={() => {
-                             props.onChange(interviewer.id)
+                             props.setInterviewer(interviewer.id)
                            }}
 
       />

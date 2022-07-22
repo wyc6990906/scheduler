@@ -12,9 +12,10 @@ export default function useApplicationData() {
   //Axios requests
   useEffect(() => {
     Promise.all([
-      axios.get(`http://localhost:8001/api/days`),
-      axios.get(`http://localhost:8001/api/appointments`),
-      axios.get(`http://localhost:8001/api/interviewers`),
+      // fix hard coding url with localhost:8001 already give proxy
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`),
     ]).then(all => {
       // console.log(all)
       setState(prev => ({
@@ -67,7 +68,7 @@ export default function useApplicationData() {
     const days = [...updateInterviewSpots(state.day, state.days, appointments)];
 
     return axios
-      .put(`http://localhost:8001/api/appointments/${id}`, {interview})
+      .put(`/api/appointments/${id}`, {interview})
       .then(result => {
         setState(prev => ({
           ...prev,
@@ -90,7 +91,7 @@ export default function useApplicationData() {
     const days = [...updateInterviewSpots(state.day, state.days, appointments)];
 
     return axios
-      .delete(`http://localhost:8001/api/appointments/${id}`)
+      .delete(`/api/appointments/${id}`)
       .then(result => {
         setState(prev => ({
           ...prev,
